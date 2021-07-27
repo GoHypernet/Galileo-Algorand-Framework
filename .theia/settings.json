@@ -1,0 +1,108 @@
+{
+    "galileo.logo": "https://cryptologos.cc/logos/algorand-algo-logo.svg?v=010",
+    "galileo.title": "Algorand",
+    "galileo.description": "Technology Designed for FutureFi",
+    "galileo.widget_label": "Algorand Portal",
+    "galileo.social_links": [
+        {
+        "icon": {
+            "prefix": "fab",
+            "name": "twitter"
+        },
+        "href": "https://twitter.com/Algorand",
+        "priority": 0
+        },
+		{
+        "icon": {
+            "prefix": "fab",
+            "name": "discord"
+        },
+        "href": "https://discord.gg/84AActu3at",
+        "priority": 1
+        },
+        {
+        "icon": {
+            "prefix": "fab",
+            "name": "github"
+        },
+        "href": "https://github.com/algorand/",
+        "priority": 2
+        }
+    ],
+    "galileo.ui_components": [
+        {
+        "type": "custom",
+        "title": "Getting Started",
+        "content": [
+            {
+            "title": "🏡 Algorand Home Page",
+            "href": "https://algorand.com/",
+            "priority": 0
+            },
+            {
+            "title": "💸 Algorand Wallet Information",
+            "href": "https://algorandwallet.com/",
+            "priority": 1
+            },
+            {
+            "title": "🤓 Developer Resources",
+            "href": "https://developer.algorand.org/",
+            "priority": 3
+            },
+            {
+            "title": "📙 Algorand Node Guide",
+            "href": "https://developer.algorand.org/docs/run-a-node/setup/types/",
+            "priority": 3
+            }
+        ]
+        },
+        {
+        "type": "custom",
+        "title": "Help",
+        "content": [
+            {
+            "title": "🤔 Algorand FAQ",
+            "href": "https://www.algorand.com/technology/faq",
+            "priority": 0
+            },
+            {
+            "title": "🌎 Official Algorand Forum",
+            "href": "https://forum.algorand.org/",
+            "priority": 1
+            },
+			{
+            "title": "⛓ How big is the Algorand Blockchain?",
+            "href": "https://howbigisalgorand.com/",
+            "priority": 2
+            },
+			{
+            "title": "👩‍🏫 What are the different Algorand node types?",
+            "href": "https://developer.algorand.org/docs/run-a-node/setup/types/",
+            "priority": 3
+            }
+        ]
+        },
+		{
+        "type": "custom",
+        "title": "Your API Endpoints",
+        "content": [
+            {
+            "title": "🏃‍♂️ Relay URL",
+            "href": "/",
+            "priority": 0
+            },
+            {
+            "title": "☁ Rest API",
+            "href": "/rpc/",
+            "priority": 1
+            },
+			{
+            "title": "📊 Node Metrics",
+            "href": "/rpc/metrics",
+            "priority": 2
+            }
+        ]
+        }
+    ],
+    "workbench.colorTheme": "Galileo Dark"
+}

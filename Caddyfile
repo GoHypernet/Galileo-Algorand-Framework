@@ -1,0 +1,28 @@
+  
+:8888 {
+        log
+
+        handle_path /* {
+                @uiget {
+                        method GET
+                        path /
+                }
+                redir @uiget /ui/
+                reverse_proxy localhost:4161
+        }
+
+        handle_path /ui/* {
+                reverse_proxy http://localhost:3000
+				respond /passwordcheck/ "OK"
+                import /tmp/hashpass.txt
+        }
+		
+        handle_path /rclone/* {
+                reverse_proxy http://localhost:5572
+                import /tmp/hashpass.txt
+        }
+
+        handle_path /rpc/* {
+                reverse_proxy http://localhost:8080
+        }
+}
