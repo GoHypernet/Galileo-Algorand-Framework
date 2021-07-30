@@ -1,8 +1,8 @@
-  
 :8888 {
         log
+		redir /auth/portal /ui/
 
-        handle_path /* {
+        route /* {
                 @uiget {
                         method GET
                         path /
@@ -11,15 +11,12 @@
                 reverse_proxy localhost:4161
         }
 
-        handle_path /ui/* {
-                reverse_proxy http://localhost:3000
-				respond /passwordcheck/ "OK"
-                import /tmp/hashpass.txt
-        }
+        import /etc/gatekeeper/auth.txt
 		
-        handle_path /rclone/* {
-                reverse_proxy http://localhost:5572
-                import /tmp/hashpass.txt
+        route /rclone* {
+            jwt
+            uri strip_prefix /rclone
+            reverse_proxy http://localhost:5572
         }
 
         handle_path /rpc/* {
