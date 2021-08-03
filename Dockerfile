@@ -75,7 +75,7 @@ ENV ALGORAND_DATA /home/galileo/data
 # set login credintials and write them to text file
 # ENV USERNAME "a"
 # ENV PASSWORD "a"
-# # RUN sed -i 's,"username": "","username": "'"$USERNAME"'",1' /etc/gatekeeper/users.json && \
-    # # sed -i 's,"hash": "","hash": "'"$(echo -n "$(echo $PASSWORD)" | bcrypt-cli -c 10 )"'",1' /etc/gatekeeper/users.json
+# RUN sed -i 's,"username": "","username": "'"$USERNAME"'",1' /etc/gatekeeper/users.json && \
+    # sed -i 's,"hash": "","hash": "'"$(echo -n "$(echo $PASSWORD)" | bcrypt-cli -c 10 )"'",1' /etc/gatekeeper/users.json
 
 ENTRYPOINT ["sh", "-c", "supervisord"]
