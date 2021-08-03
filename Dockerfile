@@ -39,6 +39,8 @@ COPY --from=galileo-ide --chown=galileo /caddy/caddy /usr/bin/caddy
 COPY --from=galileo-ide --chown=galileo /caddy/header.html /etc/assets/header.html
 COPY --from=galileo-ide --chown=galileo /caddy/users.json /etc/gatekeeper/users.json
 COPY --from=galileo-ide --chown=galileo /caddy/auth.txt /etc/gatekeeper/auth.txt
+COPY --from=galileo-ide --chown=galileo /caddy/settings.template /etc/gatekeeper/assets/settings.template
+COPY --from=galileo-ide --chown=galileo /caddy/login.template /etc/gatekeeper/assets/login.template
 COPY --chown=galileo rclone.conf /home/galileo/.config/rclone/rclone.conf
 COPY --chown=galileo Caddyfile /etc/
 RUN chmod -R a+rwx /tmp/
@@ -71,9 +73,9 @@ ENV GALILEO_RESULTS_DIR /home/galileo
 ENV ALGORAND_DATA /home/galileo/data
 
 # set login credintials and write them to text file
-ENV USERNAME "a"
-ENV PASSWORD "a"
-RUN sed -i 's,"username": "","username": "'"$USERNAME"'",1' /etc/gatekeeper/users.json && \
-    sed -i 's,"hash": "","hash": "'"$(echo -n "$(echo $PASSWORD)" | bcrypt-cli -c 10 )"'",1' /etc/gatekeeper/users.json
+# ENV USERNAME "a"
+# ENV PASSWORD "a"
+# # RUN sed -i 's,"username": "","username": "'"$USERNAME"'",1' /etc/gatekeeper/users.json && \
+    # # sed -i 's,"hash": "","hash": "'"$(echo -n "$(echo $PASSWORD)" | bcrypt-cli -c 10 )"'",1' /etc/gatekeeper/users.json
 
 ENTRYPOINT ["sh", "-c", "supervisord"]

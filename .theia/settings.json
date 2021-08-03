@@ -53,6 +53,11 @@
             "title": "📙 Algorand Node Guide",
             "href": "https://developer.algorand.org/docs/run-a-node/setup/types/",
             "priority": 3
+            },
+			{
+            "title": "🔐 Your Session Credentials",
+            "href": "/auth/settings/",
+            "priority": 4
             }
         ]
         },
