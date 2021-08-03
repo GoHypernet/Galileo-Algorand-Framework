@@ -97,7 +97,7 @@
             "priority": 0
             },
             {
-            "title": "☁ Rest API",
+            "title": "☁ RPC API",
             "href": "/rpc/",
             "priority": 1
             },
