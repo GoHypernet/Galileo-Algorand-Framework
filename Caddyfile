@@ -1,6 +1,7 @@
 :8888 {
         log
-		redir /auth/portal /ui/
+        redir /auth/portal /ui/
+		import /etc/gatekeeper/auth.txt
 
         route /* {
                 @uiget {
@@ -8,10 +9,8 @@
                         path /
                 }
                 redir @uiget /ui/
-                reverse_proxy localhost:4161
+                reverse_proxy localhost:4160
         }
-
-        import /etc/gatekeeper/auth.txt
 		
         route /rclone* {
             jwt

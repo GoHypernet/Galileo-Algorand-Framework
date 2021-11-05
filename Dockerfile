@@ -8,7 +8,7 @@ FROM hypernetlabs/galileo-ide:linux AS galileo-ide
 FROM algorand/stable
 
 # enable noninteractive installation of deadsnakes/ppa
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
+RUN apt update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata --fix-missing
 
 # install node, python, go, java, and other tools
 RUN apt update -y && apt install vim tmux curl zip unzip supervisor git software-properties-common -y && \
@@ -41,6 +41,7 @@ COPY --from=galileo-ide --chown=galileo /caddy/users.json /etc/gatekeeper/users.
 COPY --from=galileo-ide --chown=galileo /caddy/auth.txt /etc/gatekeeper/auth.txt
 COPY --from=galileo-ide --chown=galileo /caddy/settings.template /etc/gatekeeper/assets/settings.template
 COPY --from=galileo-ide --chown=galileo /caddy/login.template /etc/gatekeeper/assets/login.template
+COPY --from=galileo-ide --chown=galileo /caddy/custom.css /etc/assets/custom.css
 COPY --chown=galileo rclone.conf /home/galileo/.config/rclone/rclone.conf
 COPY --chown=galileo Caddyfile /etc/
 RUN chmod -R a+rwx /tmp/
@@ -48,7 +49,7 @@ RUN chmod -R a+rwx /tmp/
 # edit the node configuration file for operating as a relay node
 RUN cp -r /root/node/* /home/galileo/. && \
 	cp /home/galileo/data/config.json.example /home/galileo/data/config.json && \
-	sed -i 's/"NetAddress": "",/"NetAddress": ":4161",/g' /home/galileo/data/config.json && \
+	sed -i 's/"NetAddress": "",/"NetAddress": ":4160",/g' /home/galileo/data/config.json && \
 	sed -i 's/"EnableDeveloperAPI": false,/"EnableDeveloperAPI": true,/g' /home/galileo/data/config.json && \
 	sed -i 's/"EndpointAddress": "127.0.0.1:0",/"EndpointAddress": "127.0.0.1:8080",/g' /home/galileo/data/config.json && \
 	sed -i 's/"IncomingConnectionsLimit": 750,/"IncomingConnectionsLimit": 750,/g' /home/galileo/data/config.json && \
@@ -65,6 +66,8 @@ COPY supervisord.conf /etc/
 COPY rclone.conf /home/galileo/.config/rclone/rclone.conf
 
 # set environment variable to look for plugins in the correct directory
+ENV THEIA_MINI_BROWSER_HOST_PATTERN {{hostname}}
+ENV THEIA_WEBVIEW_EXTERNAL_ENDPOINT={{hostname}}
 ENV SHELL=/bin/bash \
     THEIA_DEFAULT_PLUGINS=local-dir:/home/galileo/.galileo-ide/plugins
 ENV USE_LOCAL_GIT true
@@ -72,7 +75,7 @@ ENV GALILEO_RESULTS_DIR /home/galileo
 
 ENV ALGORAND_DATA /home/galileo/data
 
-# set login credintials and write them to text file
+# # set login credintials and write them to text file
 # ENV USERNAME "a"
 # ENV PASSWORD "a"
 # RUN sed -i 's,"username": "","username": "'"$USERNAME"'",1' /etc/gatekeeper/users.json && \
